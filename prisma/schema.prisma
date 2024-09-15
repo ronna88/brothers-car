@@ -12,19 +12,27 @@ model Usuario {
   nome          String
   email         String     @unique
   senha         String
+  tipo_usuario  TipoUsuario
+  data_criacao  DateTime   @default(now())
+}
+
+model Cliente {
+  id            Int       @id @default(autoincrement())
+  nome          String
+  email         String     @unique
+  senha         String
   cpf           String?
   telefone      String?
   endereco      String?
-  tipo_usuario  TipoUsuario
   data_criacao  DateTime   @default(now())
-  carros        Carro[]    @relation("UsuarioCarros")
+  carros        Carro[]    @relation("ClienteCarros")
   orcamentos    Orcamento[]
 }
 
 model Carro {
   id            Int       @id @default(autoincrement())
   cliente_id    Int
-  cliente       Usuario    @relation("UsuarioCarros", fields: [cliente_id], references: [id])
+  cliente       Cliente    @relation("ClienteCarros", fields: [cliente_id], references: [id])
   marca         String
   modelo        String
   ano           Int
@@ -36,7 +44,7 @@ model Carro {
 model Orcamento {
   id            Int        @id @default(autoincrement())
   cliente_id    Int
-  cliente       Usuario     @relation(fields: [cliente_id], references: [id])
+  cliente       Cliente     @relation(fields: [cliente_id], references: [id])
   carro_id      Int
   carro         Carro       @relation(fields: [carro_id], references: [id])
   valor_total   Float

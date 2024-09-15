@@ -10,13 +10,24 @@ CREATE TABLE "Usuario" (
     "nome" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "senha" TEXT NOT NULL,
-    "cpf" TEXT,
-    "telefone" TEXT,
-    "endereco" TEXT,
     "tipo_usuario" "TipoUsuario" NOT NULL,
     "data_criacao" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Usuario_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Cliente" (
+    "id" SERIAL NOT NULL,
+    "nome" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "senha" TEXT NOT NULL,
+    "cpf" TEXT,
+    "telefone" TEXT,
+    "endereco" TEXT,
+    "data_criacao" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Cliente_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -61,13 +72,16 @@ CREATE TABLE "Pagamento" (
 CREATE UNIQUE INDEX "Usuario_email_key" ON "Usuario"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Cliente_email_key" ON "Cliente"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Carro_placa_key" ON "Carro"("placa");
 
 -- AddForeignKey
-ALTER TABLE "Carro" ADD CONSTRAINT "Carro_cliente_id_fkey" FOREIGN KEY ("cliente_id") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Carro" ADD CONSTRAINT "Carro_cliente_id_fkey" FOREIGN KEY ("cliente_id") REFERENCES "Cliente"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Orcamento" ADD CONSTRAINT "Orcamento_cliente_id_fkey" FOREIGN KEY ("cliente_id") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Orcamento" ADD CONSTRAINT "Orcamento_cliente_id_fkey" FOREIGN KEY ("cliente_id") REFERENCES "Cliente"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Orcamento" ADD CONSTRAINT "Orcamento_carro_id_fkey" FOREIGN KEY ("carro_id") REFERENCES "Carro"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
