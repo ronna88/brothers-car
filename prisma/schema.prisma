@@ -1,0 +1,70 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Usuario {
+  id            Int       @id @default(autoincrement())
+  nome          String
+  email         String     @unique
+  senha         String
+  cpf           String?
+  telefone      String?
+  endereco      String?
+  tipo_usuario  TipoUsuario
+  data_criacao  DateTime   @default(now())
+  carros        Carro[]    @relation("UsuarioCarros")
+  orcamentos    Orcamento[]
+}
+
+model Carro {
+  id            Int       @id @default(autoincrement())
+  cliente_id    Int
+  cliente       Usuario    @relation("UsuarioCarros", fields: [cliente_id], references: [id])
+  marca         String
+  modelo        String
+  ano           Int
+  placa         String     @unique
+  data_registro DateTime   @default(now())
+  orcamentos    Orcamento[]
+}
+
+model Orcamento {
+  id            Int        @id @default(autoincrement())
+  cliente_id    Int
+  cliente       Usuario     @relation(fields: [cliente_id], references: [id])
+  carro_id      Int
+  carro         Carro       @relation(fields: [carro_id], references: [id])
+  valor_total   Float
+  data_criacao  DateTime    @default(now())
+  status        Status
+  descricao     String?
+  pagamentos    Pagamento[]
+}
+
+model Pagamento {
+  id             Int        @id @default(autoincrement())
+  orcamento_id   Int
+  orcamento      Orcamento   @relation(fields: [orcamento_id], references: [id])
+  valor_pago     Float
+  data_pagamento DateTime    @default(now())
+  metodo_pagamento String
+  observacao     String?
+}
+
+enum TipoUsuario {
+  cliente
+  administrativo
+}
+
+
+enum Status {
+  pendente
+  aprovado
+  pago
+  cancelado
+}
