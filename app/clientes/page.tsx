@@ -1,22 +1,14 @@
-import { EyeIcon, SearchIcon, TrashIcon, UserPlus } from "lucide-react"
+import { SearchIcon, UserPlus } from "lucide-react"
 import { Button } from "../_components/ui/button"
 import { Input } from "../_components/ui/input"
 import Image from "next/image"
 import { db } from "../_lib/prisma"
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../_components/ui/table"
 import Link from "next/link"
+import ClientesTable from "../_components/ClienteTable"
 
 const Home = async () => {
   const clientes = await db.cliente.findMany({})
+
   return (
     <div>
       <div className="p-5">
@@ -46,38 +38,7 @@ const Home = async () => {
               </Link>
             </Button>
           </div>
-          <Table>
-            <TableCaption>Lista de clientes cadastrados</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nome</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Telefone</TableHead>
-                <TableHead>Endereço</TableHead>
-                <TableHead>Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {clientes.map((cliente) => (
-                <TableRow key={cliente.id}>
-                  <TableCell>{cliente.nome}</TableCell>
-                  <TableCell>{cliente.email}</TableCell>
-                  <TableCell>{cliente.telefone}</TableCell>
-                  <TableCell>{cliente.endereco}</TableCell>
-                  <TableCell>
-                    <Button variant="outline">
-                      <Link href={`/clientes/${cliente.id}`}>
-                        <EyeIcon className="text-blue-500" />
-                      </Link>
-                    </Button>
-                    <Button variant="outline">
-                      <TrashIcon className="text-red-600" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <ClientesTable clientes={clientes} />
         </div>
       </div>
     </div>

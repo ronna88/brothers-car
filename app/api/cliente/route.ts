@@ -42,3 +42,20 @@ export async function GET(req: NextRequest) {
   console.debug(userAgent)
   return NextResponse.json({ message: "Method Not Allowed" }, { status: 405 })
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { id } = await req.json()
+    console.log("ID do cliente a ser excluído:", id)
+
+    const deletedCliente = await prisma.cliente.delete({
+      where: { id: parseInt(id) },
+    })
+    console.log("Cliente excluído:", deletedCliente)
+
+    return NextResponse.json(deletedCliente, { status: 200 })
+  } catch (error) {
+    console.error("Erro ao excluir cliente:", error)
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+}

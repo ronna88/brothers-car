@@ -3,7 +3,7 @@
 import { Card, CardContent } from "./ui/card"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
-
+import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -26,6 +26,7 @@ const formSchema = z.object({
 })
 
 const ClienteForm = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,16 +54,19 @@ const ClienteForm = () => {
       if (response.ok) {
         await response.json()
         toast.success("Cliente criado com sucesso")
+        router.push("/clientes")
       } else {
         const errorData = await response.json()
         toast.error(errorData.error || "Erro ao criar cliente")
         console.error("Erro ao criar cliente:", errorData)
+        router.push("/clientes")
       }
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Erro desconhecido"
       toast.error(`Erro ao criar cliente: ${errorMessage}`)
       console.error("Erro ao criar cliente:", error)
+      router.push("/clientes")
     }
   }
 
