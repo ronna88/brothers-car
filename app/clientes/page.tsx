@@ -20,8 +20,6 @@ const Home = async () => {
   return (
     <div>
       <div className="p-5">
-        <h2 className="text-xl">Olá, Theo</h2>
-        <p>Segunda-Feira, 05 de agosto</p>
         <div className="mt-6 flex items-center gap-2">
           <Input placeholder="Buscar clientes..." />
           <Button>
