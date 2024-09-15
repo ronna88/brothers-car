@@ -1,5 +1,4 @@
-import { PenLineIcon, SearchIcon, TrashIcon } from "lucide-react"
-import Header from "../_components/Header"
+import { EyeIcon, SearchIcon, TrashIcon, UserPlus } from "lucide-react"
 import { Button } from "../_components/ui/button"
 import { Input } from "../_components/ui/input"
 import Image from "next/image"
@@ -14,12 +13,12 @@ import {
   TableHeader,
   TableRow,
 } from "../_components/ui/table"
+import Link from "next/link"
 
 const Home = async () => {
   const clientes = await db.cliente.findMany({})
   return (
     <div>
-      <Header />
       <div className="p-5">
         <h2 className="text-xl">Olá, Theo</h2>
         <p>Segunda-Feira, 05 de agosto</p>
@@ -40,7 +39,15 @@ const Home = async () => {
         </div>
 
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase">Clientes</h2>
-        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+        <div className="flex flex-col gap-4 overflow-auto">
+          <div>
+            <Button>
+              <Link href={`clientes/form`} className="flex flex-row gap-2">
+                <UserPlus size={20} />
+                <span> Adicionar Cliente</span>
+              </Link>
+            </Button>
+          </div>
           <Table>
             <TableCaption>Lista de clientes cadastrados</TableCaption>
             <TableHeader>
@@ -61,10 +68,12 @@ const Home = async () => {
                   <TableCell>{cliente.endereco}</TableCell>
                   <TableCell>
                     <Button variant="outline">
-                      <PenLineIcon />
+                      <Link href={`/clientes/${cliente.id}`}>
+                        <EyeIcon className="text-blue-500" />
+                      </Link>
                     </Button>
                     <Button variant="outline">
-                      <TrashIcon />
+                      <TrashIcon className="text-red-600" />
                     </Button>
                   </TableCell>
                 </TableRow>
