@@ -1,6 +1,14 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
   "rules": {
-    "no-unused-vars": "error"
-  }
+    "no-unused-vars": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["app/_lib/prisma.ts"],
+      "rules": {
+        "no-var": "off"
+      }
+    }
+  ]
 }

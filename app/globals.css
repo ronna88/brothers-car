@@ -2,92 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #f0f4f8;
-  --foreground: #1f2933;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0d3b66;
-    --foreground: #f0f4f8;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
 @layer base {
-  :root {
-    --background: 207 100% 95%; /* Azul claro */
-    --foreground: 210 15% 12%; /* Cinza escuro */
-    --card: 0 0% 100%; /* Branco */
-    --card-foreground: 210 15% 12%; /* Cinza escuro */
-    --popover: 0 0% 100%; /* Branco */
-    --popover-foreground: 210 15% 12%; /* Cinza escuro */
-    --primary: 210 100% 21%; /* Azul escuro */
-    --primary-foreground: 0 0% 100%; /* Branco */
-    --secondary: 210 32% 90%; /* Cinza claro */
-    --secondary-foreground: 210 100% 21%; /* Azul escuro */
-    --muted: 210 15% 77%; /* Cinza */
-    --muted-foreground: 210 20% 50%; /* Cinza médio */
-    --accent: 0 85% 65%; /* Vermelho */
-    --accent-foreground: 0 0% 100%; /* Branco */
-    --destructive: 0 85% 50%; /* Vermelho escuro */
-    --destructive-foreground: 0 0% 100%; /* Branco */
-    --border: 220 50% 97%; /* Cinza claro */
-    --input: 220 50% 97%; /* Cinza claro */
-    --ring: 210 100% 21%; /* Azul escuro */
-    --chart-1: 210 100% 21%; /* Azul */
-    --chart-2: 0 85% 65%; /* Vermelho */
-    --chart-3: 43 100% 50%; /* Amarelo */
-    --chart-4: 145 63% 42%; /* Verde */
-    --chart-5: 290 40% 45%; /* Roxo */
-    --radius: 0.5rem;
-  }
-
   .dark {
-    --background: 210 100% 21%; /* Azul escuro */
-    --foreground: 0 0% 100%; /* Branco */
-    --card: 210 100% 21%; /* Azul escuro */
-    --card-foreground: 0 0% 100%; /* Branco */
-    --popover: 210 100% 21%; /* Azul escuro */
-    --popover-foreground: 0 0% 100%; /* Branco */
-    --primary: 0 0% 100%; /* Branco */
-    --primary-foreground: 210 100% 21%; /* Azul escuro */
-    --secondary: 210 15% 25%; /* Cinza escuro */
-    --secondary-foreground: 0 0% 100%; /* Branco */
-    --muted: 210 15% 25%; /* Cinza escuro */
-    --muted-foreground: 210 20% 70%; /* Cinza claro */
-    --accent: 0 85% 50%; /* Vermelho escuro */
-    --accent-foreground: 0 0% 100%; /* Branco */
-    --destructive: 0 62.8% 30.6%; /* Vermelho escuro */
-    --destructive-foreground: 0 0% 100%; /* Branco */
-    --border: 210 15% 25%; /* Cinza escuro */
-    --input: 210 15% 25%; /* Cinza escuro */
-    --ring: 210 100% 90%; /* Azul claro */
-    --chart-1: 210 100% 60%; /* Azul claro */
-    --chart-2: 0 85% 70%; /* Vermelho claro */
-    --chart-3: 43 100% 50%; /* Amarelo */
-    --chart-4: 145 50% 50%; /* Verde */
-    --chart-5: 290 50% 45%; /* Roxo */
+    --background: 225 9% 9%;
+    --foreground: 210 40% 98%;
+
+    --card: 228 9% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 228 9% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 252 100% 69%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 228 6% 16%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 228 6% 16%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 228 6% 16%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 228 6% 16%;
+    --input: 228 6% 16%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --radius: 0.5rem;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border antialiased;
+  }
+  html {
+    @apply h-full;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply h-full bg-background text-foreground;
   }
 }
