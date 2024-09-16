@@ -38,9 +38,32 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const userAgent = req.headers.get("user-agent") || "Unknown"
-  console.debug(userAgent)
-  return NextResponse.json({ message: "Method Not Allowed" }, { status: 405 })
+  try {
+    const { searchParams } = new URL(req.url)
+    // console.log("Parâmetros de busca:", searchParams)
+    // console.log(searchParams.get("nome"))
+    if (searchParams.get("nome") === null || searchParams.get("nome") === "") {
+      // console.log("Buscando todos os clientes")
+      const clientes = await prisma.cliente.findMany({})
+      // console.log("Clientes encontrados:", clientes)
+      return NextResponse.json(clientes, { status: 200 })
+    }
+    const nome = searchParams.get("nome") || ""
+    const clientes = await prisma.cliente.findMany({
+      where: {
+        nome: {
+          contains: (nome as string) || "",
+          mode: "insensitive",
+        },
+      },
+    })
+    return NextResponse.json(clientes, { status: 200 })
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Erro ao buscar clientes" },
+      { status: 500 },
+    )
+  }
 }
 
 export async function DELETE(req: NextRequest) {

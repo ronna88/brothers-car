@@ -36,8 +36,11 @@ const ClientesTable = ({ clientes }) => {
   }
 
   useEffect(() => {
-    console.log(clientList)
-  }, [clientList])
+    console.log(clientes)
+    if (clientes !== clientList) {
+      setClientList(clientes)
+    }
+  }, [clientes, clientList])
 
   return (
     <Table>

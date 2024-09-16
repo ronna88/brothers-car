@@ -1,23 +1,49 @@
-import { SearchIcon, UserPlus } from "lucide-react"
+"use client"
+
+import { UserPlus } from "lucide-react"
 import { Button } from "../_components/ui/button"
-import { Input } from "../_components/ui/input"
 import Image from "next/image"
-import { db } from "../_lib/prisma"
+import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import ClientesTable from "../_components/ClienteTable"
+import ClienteSearch from "../_components/ClienteSearch"
+import { useEffect, useState } from "react"
 
-const Home = async () => {
-  const clientes = await db.cliente.findMany({})
+const Home = () => {
+  const searchParams = useSearchParams()
+  const nome = searchParams.get("nome") || ""
+  const [clientes, setClientes] = useState([])
+  const [carregados, setCarregados] = useState(false)
+
+  // Função para buscar clientes da API
+  const fetchClientes = async (nome: string) => {
+    const response = await fetch(`/api/cliente?nome=${nome}`)
+    // console.log(response)
+    const data = await response.json()
+    // console.log(data)
+    setClientes(data)
+  }
+
+  // Reexecuta quando o parâmetro de busca mudar
+  useEffect(() => {
+    fetchClientes(nome)
+  }, [nome])
+
+  useEffect(() => {
+    if (!carregados) {
+      setCarregados(true)
+      fetchClientes(nome)
+    }
+  }, [carregados, nome])
+
+  useEffect(() => {
+    console.log(clientes)
+  }, [clientes])
 
   return (
     <div>
       <div className="p-5">
-        <div className="mt-6 flex items-center gap-2">
-          <Input placeholder="Buscar clientes..." />
-          <Button>
-            <SearchIcon />
-          </Button>
-        </div>
+        <ClienteSearch />
 
         <div className="relative mt-8 h-[150px] w-full">
           <Image
@@ -38,6 +64,9 @@ const Home = async () => {
               </Link>
             </Button>
           </div>
+          <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+            Resultados para &quot;{nome}&quot;
+          </h2>
           <ClientesTable clientes={clientes} />
         </div>
       </div>
