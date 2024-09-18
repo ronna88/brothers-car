@@ -37,6 +37,37 @@ export async function POST(req: NextRequest) {
   }
 }
 
+export async function PUT(req: NextRequest) {
+  try {
+    const { id, nome, cpf, email, telefone, endereco } = await req.json()
+    console.log("Dados recebidos para atualização:", {
+      id,
+      nome,
+      cpf,
+      email,
+      telefone,
+      endereco,
+    })
+
+    const updatedCliente = await prisma.cliente.update({
+      where: { id: parseInt(id) },
+      data: {
+        nome,
+        cpf,
+        email,
+        telefone,
+        endereco,
+      },
+    })
+    console.log("Cliente atualizado:", updatedCliente)
+
+    return NextResponse.json(updatedCliente, { status: 200 })
+  } catch (error) {
+    console.error("Erro ao atualizar cliente:", error)
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+}
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)

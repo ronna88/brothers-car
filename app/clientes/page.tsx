@@ -64,9 +64,12 @@ const Home = () => {
               </Link>
             </Button>
           </div>
-          <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-            Resultados para &quot;{nome}&quot;
-          </h2>
+          {nome !== "" && (
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+              Resultados para &quot;{nome}&quot;
+            </h2>
+          )}
+
           <ClientesTable clientes={clientes} />
         </div>
       </div>

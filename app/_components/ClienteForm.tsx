@@ -25,11 +25,21 @@ const formSchema = z.object({
   endereco: z.string(),
 })
 
-const ClienteForm = () => {
+interface ClienteFormProps {
+  cliente?: {
+    nome: string
+    cpf: string
+    email: string
+    telefone: string
+    endereco: string
+  }
+}
+
+const ClienteForm: React.FC<ClienteFormProps> = ({ cliente }) => {
   const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: cliente || {
       nome: "",
       cpf: "",
       email: "",
@@ -45,27 +55,40 @@ const ClienteForm = () => {
     event.preventDefault()
     try {
       const response = await fetch("/api/cliente", {
-        method: "POST",
+        method: cliente ? "PUT" : "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(cliente ? { id: cliente.id, ...data } : data),
       })
       if (response.ok) {
         await response.json()
-        toast.success("Cliente criado com sucesso")
+        toast.success(
+          `Cliente ${cliente ? "atualizado" : "criado"} com sucesso`,
+        )
         router.push("/clientes")
       } else {
         const errorData = await response.json()
-        toast.error(errorData.error || "Erro ao criar cliente")
-        console.error("Erro ao criar cliente:", errorData)
+        toast.error(
+          errorData.error ||
+            `Erro ao ${cliente ? "atualizar" : "criar"} cliente`,
+        )
+        console.error(
+          `Erro ao ${cliente ? "atualizar" : "criar"} cliente:`,
+          errorData,
+        )
         router.push("/clientes")
       }
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Erro desconhecido"
-      toast.error(`Erro ao criar cliente: ${errorMessage}`)
-      console.error("Erro ao criar cliente:", error)
+      toast.error(
+        `Erro ao ${cliente ? "atualizar" : "criar"} cliente: ${errorMessage}`,
+      )
+      console.error(
+        `Erro ao ${cliente ? "atualizar" : "criar"} cliente:`,
+        error,
+      )
       router.push("/clientes")
     }
   }

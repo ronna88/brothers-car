@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
@@ -12,22 +13,33 @@ import {
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import Link from "next/link"
+import { useState } from "react"
 
 const Header = () => {
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
+
   const options = {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   }
+
+  const handleButtonClick = () => {
+    setIsSheetOpen(false)
+  }
+
   return (
     <Card>
       <CardContent className="flex flex-row items-center justify-between p-5">
         <Image src="/logo.png" alt="Brother's Car" width={100} height={15} />
-
-        <Sheet>
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
-            <Button size="icon" variant="outline">
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={() => setIsSheetOpen(true)}
+            >
               <MenuIcon />
             </Button>
           </SheetTrigger>
@@ -51,30 +63,50 @@ const Header = () => {
             </div>
 
             <div className="flex flex-col gap-2 border-b border-solid py-5">
-              <Button className="justify-start" variant="ghost">
+              <Button
+                className="justify-start"
+                variant="ghost"
+                onClick={handleButtonClick}
+              >
                 <Link href="/" className="flex flex-row gap-2">
                   <HomeIcon size={18}></HomeIcon>
                   Início
                 </Link>
               </Button>
-              <Button className="justify-start" variant="ghost">
+              <Button
+                className="justify-start"
+                variant="ghost"
+                onClick={handleButtonClick}
+              >
                 <Link href="/clientes" className="flex flex-row gap-2">
                   <CircleUser size={18} />
                   Clientes
                 </Link>
               </Button>
-              <Button className="justify-start gap-2" variant="ghost">
+              <Button
+                className="justify-start gap-2"
+                variant="ghost"
+                onClick={handleButtonClick}
+              >
                 <Link href="/carros" className="flex flex-row gap-2">
                   <Car size={18} /> Carros
                 </Link>
               </Button>
-              <Button className="justify-start gap-2" variant="ghost">
+              <Button
+                className="justify-start gap-2"
+                variant="ghost"
+                onClick={handleButtonClick}
+              >
                 <Link href="/orcamentos" className="flex flex-row gap-2">
                   <DollarSign size={18} />
                   Orçamentos
                 </Link>
               </Button>
-              <Button className="justify-start gap-2" variant="ghost">
+              <Button
+                className="justify-start gap-2"
+                variant="ghost"
+                onClick={handleButtonClick}
+              >
                 <Link href="/financeiro" className="flex flex-row gap-2">
                   <HandCoins size={18} /> Financeiro
                 </Link>
