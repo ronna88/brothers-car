@@ -66,7 +66,7 @@ const ClientesPage = () => {
             </h2>
           )}
           <Suspense fallback={<div>Carregando...</div>}>
-            <ClientesTable clientes={clientes} />
+            {clientes.length > 0 && <ClientesTable clientes={clientes} />}
           </Suspense>
         </div>
       </div>
