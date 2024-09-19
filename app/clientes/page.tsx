@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import ClientesTable from "../_components/ClienteTable"
 import ClienteSearch from "../_components/ClienteSearch"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 
 const Home = () => {
   const searchParams = useSearchParams()
@@ -69,8 +69,9 @@ const Home = () => {
               Resultados para &quot;{nome}&quot;
             </h2>
           )}
-
-          <ClientesTable clientes={clientes} />
+          <Suspense fallback={<div>Carregando...</div>}>
+            <ClientesTable clientes={clientes} />
+          </Suspense>
         </div>
       </div>
     </div>

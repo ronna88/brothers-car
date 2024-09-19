@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import OrcamentosTable from "../_components/OrcamentosTable"
 import OrcamentoSearch from "../_components/OrcamentoSearch"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 
 const Home = () => {
   const searchParams = useSearchParams()
@@ -61,8 +61,9 @@ const Home = () => {
               Resultados para &quot;{nome}&quot;
             </h2>
           )}
-
-          <OrcamentosTable orcamentos={orcamentos} />
+          <Suspense fallback={<div>Carregando...</div>}>
+            <OrcamentosTable orcamentos={orcamentos} />
+          </Suspense>
         </div>
       </div>
     </div>

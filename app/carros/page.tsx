@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import CarrosTable from "../_components/CarrosTable"
 import CarroSearch from "../_components/CarroSearch"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 
 const Home = () => {
   //TODO: Implementar a entidade Carros
@@ -67,8 +67,9 @@ const Home = () => {
               Resultados para &quot;{placa}&quot;
             </h2>
           )}
-
-          <CarrosTable carros={carros} />
+          <Suspense fallback={<div>Carregando...</div>}>
+            <CarrosTable carros={carros} />
+          </Suspense>
         </div>
       </div>
     </div>
