@@ -49,10 +49,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cliente }) => {
     },
   })
 
-  const handleSubmit = async (
-    data: z.infer<typeof formSchema>,
-    event: React.FormEvent,
-  ) => {
+  const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     event.preventDefault()
     try {
       const response = await fetch("/api/cliente", {
