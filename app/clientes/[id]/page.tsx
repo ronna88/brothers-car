@@ -20,7 +20,7 @@ import ClienteForm from "@/app/_components/ClienteForm"
 
 interface ClientePageProps {
   params: {
-    id: number
+    id: string
   }
 }
 

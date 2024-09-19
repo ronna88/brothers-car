@@ -49,7 +49,7 @@ const ClientesTable = ({ clientes }: ClientesTableProps) => {
 
   useEffect(() => {
     console.log(clientes)
-    if (clientes !== clientList) {
+    if (clientes.length !== clientList.length) {
       setClientList(clientes)
     }
   }, [clientes])
