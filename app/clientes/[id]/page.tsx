@@ -50,6 +50,7 @@ const ClienteDetalhes = async ({ params }: ClientePageProps) => {
   })
 
   if (!clienteDetails) {
+    console.log(clienteDetails)
     return notFound()
   }
 
