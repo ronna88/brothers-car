@@ -26,6 +26,7 @@ import {
 } from "./ui/select"
 
 const formSchema = z.object({
+  id: z.number().optional(),
   cliente: z.string().nonempty("Selecione um cliente"),
   carro: z.string().nonempty("Selecione um carro"),
   descricao: z.string().nonempty("Descrição é obrigatória"),
@@ -153,7 +154,8 @@ const OrcamentoForm: React.FC<OrcamentoFormProps> = ({ orcamento }) => {
   }, [form.watch("cliente"), carros])
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-    data = { ...data, id: orcamento ? orcamento.id : undefined }
+    data = { ...data, id: orcamento ? Number(orcamento.id) : undefined }
+    id: orcamento ? orcamento.id : undefined
     console.log("data", data)
     let valorTotal = 0.0
     for (let i = 0; i < data.itens.length; i++) {
