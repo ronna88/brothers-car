@@ -39,7 +39,10 @@ export async function POST(req: NextRequest) {
         { status: 400 },
       )
     }
-    return NextResponse.json({ error: error.message }, { status: 501 })
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 501 },
+    )
   }
 }
 
@@ -87,7 +90,10 @@ export async function PUT(req: NextRequest) {
         { status: 400 },
       )
     }
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 },
+    )
   }
 }
 
@@ -139,6 +145,9 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json(deletedCarro, { status: 200 })
   } catch (error) {
     console.error("Erro ao excluir carro:", error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 },
+    )
   }
 }

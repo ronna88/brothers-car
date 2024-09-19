@@ -49,7 +49,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(newOrcamento, { status: 200 })
   } catch (error) {
     console.error("Erro ao criar orçamento:", error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 },
+    )
   }
 }
 
@@ -108,7 +111,10 @@ export async function PUT(req: NextRequest) {
         { status: 400 },
       )
     }
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 },
+    )
   }
 }
 
@@ -183,6 +189,9 @@ export async function DELETE(req: NextRequest) {
         { status: 400 },
       )
     }
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 },
+    )
   }
 }

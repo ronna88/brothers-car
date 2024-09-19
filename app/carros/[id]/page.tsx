@@ -20,14 +20,36 @@ import CarroForm from "@/app/_components/CarroForm"
 
 interface CarroPageProps {
   params: {
-    id: string
+    id: number
   }
 }
 
+interface Carro {
+  id: number
+  marca: string
+  modelo: string
+  ano: number
+  placa: string
+  cliente: {
+    id: number
+    nome: string
+    cpf: string | null
+    email: string | null
+    telefone: string | null
+    endereco: string | null
+  }
+  orcamentos: {
+    id: number
+    descricao: string | null
+    valor_total: number
+    status: "pendente" | "aprovado" | "pago" | "cancelado"
+  }[]
+}
+
 const CarroDetalhes = async ({ params }: CarroPageProps) => {
-  const carro = await db.carro.findUnique({
+  const carroDetails = await db.carro.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: parseInt(params.id + ""),
     },
     include: {
       orcamentos: true,
@@ -35,9 +57,11 @@ const CarroDetalhes = async ({ params }: CarroPageProps) => {
     },
   })
 
-  if (!carro) {
+  if (!carroDetails) {
     return notFound()
   }
+
+  const carro: Carro = carroDetails
 
   return (
     <div className="mt-6 grid w-full grid-cols-1 gap-2">

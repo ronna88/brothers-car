@@ -41,24 +41,27 @@ const formSchema = z.object({
 })
 
 interface OrcamentoFormProps {
+  id?: number
   orcamento?: {
-    id: string
-    descricao: string
+    id: number
+    descricao: string | null
     cliente: {
       id: number
       nome: string
-      cpf: string
-      email: string
-      telefone: string
-      endereco: string
+      cpf: string | null
+      email: string | null
+      telefone: string | null
+      endereco: string | null
     }
     carro: {
       id: number
       modelo: string
-      cliente_id: number
+      marca: string
+      placa: string
     }
     itens: {
-      descricao: string
+      id: number
+      descricao: string | null
       quantidade: number
       valor: number
     }[]
@@ -80,10 +83,10 @@ const OrcamentoForm: React.FC<OrcamentoFormProps> = ({ orcamento }) => {
       ? {
           cliente: orcamento.cliente.id.toString(),
           carro: orcamento.carro.id.toString(),
-          descricao: orcamento.descricao,
+          descricao: orcamento.descricao || "",
           itens: orcamento.itens
             ? orcamento.itens.map((item) => ({
-                descricao: item.descricao,
+                descricao: item.descricao || "",
                 quantidade: item.quantidade.toString(),
                 valor: item.valor.toString(),
               }))

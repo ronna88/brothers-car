@@ -22,11 +22,41 @@ const formSchema = z.object({
 })
 
 interface OrcamentoFormProps {
+  id?: number
   orcamento?: {
-    id: string
+    id: number
     status: string
   }
 }
+
+/*
+interface OrcamentoStatusFormProps {
+  id?: number
+  orcamento?: {
+    id: number
+    descricao: string | null
+    cliente: {
+      id: number
+      nome: string
+      cpf: string | null
+      email: string | null
+      telefone: string | null
+      endereco: string | null
+    }
+    carro: {
+      id: number
+      modelo: string
+      marca: string
+      placa: string
+    }
+    itens: {
+      id: number
+      descricao: string | null
+      quantidade: number
+      valor: number
+    }[]
+  }
+} */
 
 const OrcamentoStatusForm: React.FC<OrcamentoFormProps> = ({ orcamento }) => {
   const router = useRouter()

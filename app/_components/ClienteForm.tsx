@@ -26,13 +26,20 @@ const formSchema = z.object({
 })
 
 interface ClienteFormProps {
+  id?: number
   cliente?: {
     id?: number
     nome: string
-    cpf: string
-    email: string
-    telefone: string
-    endereco: string
+    cpf: string | null
+    email: string | null
+    telefone: string | null
+    endereco: string | null
+    orcamentos?: {
+      id: number
+      descricao: string | null
+      valor_total: number
+      status: string
+    }[]
   }
 }
 
@@ -40,13 +47,21 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cliente }) => {
   const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: cliente || {
-      nome: "",
-      cpf: "",
-      email: "",
-      telefone: "",
-      endereco: "",
-    },
+    defaultValues: cliente
+      ? {
+          ...cliente,
+          cpf: cliente.cpf ?? "",
+          email: cliente.email ?? "",
+          telefone: cliente.telefone ?? "",
+          endereco: cliente.endereco ?? "",
+        }
+      : {
+          nome: "",
+          cpf: "",
+          email: "",
+          telefone: "",
+          endereco: "",
+        },
   })
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {

@@ -64,7 +64,10 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json(updatedCliente, { status: 200 })
   } catch (error) {
     console.error("Erro ao atualizar cliente:", error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 },
+    )
   }
 }
 
@@ -110,6 +113,9 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json(deletedCliente, { status: 200 })
   } catch (error) {
     console.error("Erro ao excluir cliente:", error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 },
+    )
   }
 }

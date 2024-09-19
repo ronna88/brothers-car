@@ -34,19 +34,20 @@ const formSchema = z.object({
 })
 
 interface CarroFormProps {
+  id?: number
   carro?: {
-    id: string
+    id: number
     marca: string
     modelo: string
-    ano: string
+    ano: number
     placa: string
     cliente: {
       id: number
       nome: string
-      cpf: string
-      email: string
-      telefone: string
-      endereco: string
+      cpf: string | null
+      email: string | null
+      telefone: string | null
+      endereco: string | null
     }
   }
 }

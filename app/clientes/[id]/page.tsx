@@ -20,23 +20,40 @@ import ClienteForm from "@/app/_components/ClienteForm"
 
 interface ClientePageProps {
   params: {
-    id: string
+    id: number
   }
 }
 
+interface Cliente {
+  id: number
+  nome: string
+  email: string | null
+  cpf: string | null
+  telefone: string | null
+  endereco: string | null
+  orcamentos?: {
+    id: number
+    descricao: string | null
+    valor_total: number
+    status: string
+  }[]
+}
+
 const ClienteDetalhes = async ({ params }: ClientePageProps) => {
-  const cliente = await db.cliente.findUnique({
+  const clienteDetails = await db.cliente.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: parseInt(params.id + ""),
     },
     include: {
       orcamentos: true,
     },
   })
 
-  if (!cliente) {
+  if (!clienteDetails) {
     return notFound()
   }
+
+  const cliente: Cliente = clienteDetails
 
   return (
     <div className="mt-6 grid w-full grid-cols-1 gap-2">
@@ -89,7 +106,7 @@ const ClienteDetalhes = async ({ params }: ClientePageProps) => {
               Orçamentos
             </h2>
             <div>
-              {cliente?.orcamentos.map((orcamento) => (
+              {cliente?.orcamentos?.map((orcamento) => (
                 <div key={orcamento.id}>
                   <div className="flex flex-row justify-between gap-2">
                     <div>{orcamento.descricao}</div>

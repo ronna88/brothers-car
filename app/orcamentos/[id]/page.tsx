@@ -21,14 +21,42 @@ import OrcamentoStatusForm from "@/app/_components/OrcamentoStatusForm"
 
 interface OrcamentoPageProps {
   params: {
-    id: string
+    id: number
   }
 }
 
+interface Orcamento {
+  id: number
+  descricao: string | null
+  data_criacao: Date
+  valor_total: number
+  status: string
+  carro: {
+    id: number
+    marca: string
+    modelo: string
+    placa: string
+  }
+  cliente: {
+    id: number
+    nome: string
+    cpf: string | null
+    email: string | null
+    telefone: string | null
+    endereco: string | null
+  }
+  itens: {
+    id: number
+    descricao: string | null
+    quantidade: number
+    valor: number
+  }[]
+}
+
 const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
-  const orcamento = await db.orcamento.findUnique({
+  const orcamentoDetails = await db.orcamento.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: parseInt(params.id + ""),
     },
     include: {
       carro: true,
@@ -37,9 +65,11 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
     },
   })
 
-  if (!orcamento) {
+  if (!orcamentoDetails) {
     return notFound()
   }
+
+  const orcamento: Orcamento = orcamentoDetails
 
   return (
     <div className="mt-6 grid w-full grid-cols-1 gap-2">
