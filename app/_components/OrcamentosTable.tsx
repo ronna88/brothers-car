@@ -38,7 +38,9 @@ const OrcamentosTable = ({ orcamentos }) => {
       }
 
       setOrcamentoList(
-        orcamentoList.filter((orcamento) => orcamento.id !== parseInt(id)),
+        orcamentoList.filter(
+          (orcamento: { id: number }) => orcamento.id !== parseInt(id),
+        ),
       )
       toast.success("Orçamento excluído com sucesso")
     } catch (error) {
