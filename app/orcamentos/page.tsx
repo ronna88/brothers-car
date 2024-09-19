@@ -9,7 +9,7 @@ import OrcamentosTable from "../_components/OrcamentosTable"
 import OrcamentoSearch from "../_components/OrcamentoSearch"
 import { Suspense, useEffect, useState } from "react"
 
-const Home = () => {
+const OrcamentosPage = () => {
   const searchParams = useSearchParams()
   const nome = searchParams.get("nome") || ""
   const [orcamentos, setOrcamentos] = useState([])
@@ -29,7 +29,7 @@ const Home = () => {
   }, [carregados, nome])
 
   useEffect(() => {
-    // console.log(orcamentos)
+    console.log(orcamentos)
   }, [orcamentos])
 
   return (
@@ -70,4 +70,10 @@ const Home = () => {
   )
 }
 
-export default Home
+const OrcamentosPageWrapper = () => (
+  <Suspense fallback={<div>Carregando...</div>}>
+    <OrcamentosPage />
+  </Suspense>
+)
+
+export default OrcamentosPageWrapper

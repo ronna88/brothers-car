@@ -9,22 +9,18 @@ import ClientesTable from "../_components/ClienteTable"
 import ClienteSearch from "../_components/ClienteSearch"
 import { Suspense, useEffect, useState } from "react"
 
-const Home = () => {
+const ClientesPage = () => {
   const searchParams = useSearchParams()
   const nome = searchParams.get("nome") || ""
   const [clientes, setClientes] = useState([])
   const [carregados, setCarregados] = useState(false)
 
-  // Função para buscar clientes da API
   const fetchClientes = async (nome: string) => {
     const response = await fetch(`/api/cliente?nome=${nome}`)
-    // console.log(response)
     const data = await response.json()
-    // console.log(data)
     setClientes(data)
   }
 
-  // Reexecuta quando o parâmetro de busca mudar
   useEffect(() => {
     fetchClientes(nome)
   }, [nome])
@@ -78,4 +74,10 @@ const Home = () => {
   )
 }
 
-export default Home
+const ClientesPageWrapper = () => (
+  <Suspense fallback={<div>Carregando...</div>}>
+    <ClientesPage />
+  </Suspense>
+)
+
+export default ClientesPageWrapper

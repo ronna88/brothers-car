@@ -9,8 +9,7 @@ import CarrosTable from "../_components/CarrosTable"
 import CarroSearch from "../_components/CarroSearch"
 import { Suspense, useEffect, useState } from "react"
 
-const Home = () => {
-  //TODO: Implementar a entidade Carros
+const CarrosPage = () => {
   const searchParams = useSearchParams()
   const placa = searchParams.get("placa") || ""
   const [carros, setCarros] = useState([])
@@ -22,7 +21,6 @@ const Home = () => {
     setCarros(data)
   }
 
-  // Reexecuta quando o parâmetro de busca mudar
   useEffect(() => {
     fetchCarros(placa)
   }, [placa])
@@ -76,4 +74,10 @@ const Home = () => {
   )
 }
 
-export default Home
+const CarrosPageWrapper = () => (
+  <Suspense fallback={<div>Carregando...</div>}>
+    <CarrosPage />
+  </Suspense>
+)
+
+export default CarrosPageWrapper
