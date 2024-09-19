@@ -13,7 +13,19 @@ import { Button } from "../_components/ui/button"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-const ClientesTable = ({ clientes }) => {
+interface Cliente {
+  id: number
+  nome: string
+  email: string
+  telefone: string
+  endereco: string
+}
+
+interface ClientesTableProps {
+  clientes: Cliente[]
+}
+
+const ClientesTable = ({ clientes }: ClientesTableProps) => {
   const [clientList, setClientList] = useState(clientes)
 
   const handleDelete = async (id: string) => {
