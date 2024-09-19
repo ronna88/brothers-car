@@ -18,7 +18,7 @@ import { useState } from "react"
 const Header = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
 
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     weekday: "long",
     year: "numeric",
     month: "long",
