@@ -20,7 +20,25 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
-const OrcamentosTable = ({ orcamentos }) => {
+interface Orcamento {
+  id: number
+  data_criacao: string
+  cliente: {
+    nome: string
+  }
+  carro: {
+    modelo: string
+    placa: string
+  }
+  valor_total: number
+  status: "pendente" | "aprovado" | "pago" | "cancelado"
+}
+
+interface OrcamentosTableProps {
+  orcamentos: Orcamento[]
+}
+
+const OrcamentosTable = ({ orcamentos }: OrcamentosTableProps) => {
   const [orcamentoList, setOrcamentoList] = useState(orcamentos)
 
   const handleDelete = async (id: string) => {
