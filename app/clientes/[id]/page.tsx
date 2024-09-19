@@ -50,7 +50,7 @@ const ClienteDetalhes = async ({ params }: ClientePageProps) => {
   })
 
   if (!clienteDetails) {
-    console.log(clienteDetails)
+    console.log(`Cliente com ID ${params.id} não foi encontrado.`)
     return notFound()
   }
 
