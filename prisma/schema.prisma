@@ -52,6 +52,16 @@ model Orcamento {
   status        Status
   descricao     String?
   pagamentos    Pagamento[]
+  itens         ItemOrcamento[] 
+}
+
+model ItemOrcamento {
+  id            Int        @id @default(autoincrement())
+  orcamento_id  Int
+  orcamento     Orcamento   @relation(fields: [orcamento_id], references: [id])
+  descricao     String
+  quantidade    Int
+  valor         Float
 }
 
 model Pagamento {

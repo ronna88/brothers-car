@@ -40,7 +40,7 @@ const ClientesTable = ({ clientes }) => {
     if (clientes !== clientList) {
       setClientList(clientes)
     }
-  }, [clientes, clientList])
+  }, [clientes])
 
   return (
     <Table>
