@@ -27,6 +27,7 @@ const formSchema = z.object({
 
 interface ClienteFormProps {
   cliente?: {
+    id?: number
     nome: string
     cpf: string
     email: string
