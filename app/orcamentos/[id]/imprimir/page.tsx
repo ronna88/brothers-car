@@ -161,7 +161,7 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
             <td className="font-semibold text-end">Valor Total</td>
           </tr>
           {orcamento.itens.map((item) => (
-            <tr>
+            <tr key={item.id}>
               <td className="text-start max-w-56">{item.descricao}</td>
               <td className="text-center">{item.quantidade}</td>
               <td className="text-end">
