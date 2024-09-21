@@ -81,59 +81,33 @@
 }
 
 @media print {
-  .header {
-    display: none;
-  }
-  thead {
-    display: table-header-group;
-  }
-  tfoot {
-    display: table-footer-group;
-  }
-
-  button {
-    display: none;
-  }
-
   body {
-    margin: 0;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  /* Styles go here */
-
-  .page-header,
-  .page-header-space {
-    height: 260px;
-  }
-
-  .page-footer,
-  .page-footer-space {
-    height: 50px;
-  }
-
-  .page-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    /* border-top: 1px solid black; /* for demo */
-    /* background: yellow; /* for demo */
-  }
-
-  .page-header {
-    position: fixed;
-    top: 0mm;
-    width: 100%;
-    /* border-bottom: 1px solid black; /* for demo */
-    /* background: yellow; /* for demo */
-  }
-
-  .page {
-    page-break-after: always;
+  .header {
+    display: none;
   }
 
   @page {
-    margin: 20mm;
+    size: A4;
+    margin: 127mm;
+  }
+
+  .cabecalho {
+    position: fixed;
+    top: 0;
+  }
+
+  .orcamento-itens {
+    position: relative;
+    top: 250px;
+    max-height: 200px;
+    page-break-after: always;
+  }
+
+  .orcamento-item {
+    page-break-inside: avoid;
   }
 }

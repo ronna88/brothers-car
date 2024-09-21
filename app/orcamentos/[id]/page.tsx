@@ -1,56 +1,60 @@
-import { Card, CardContent } from "@/app/_components/ui/card"
-import { db } from "@/app/_lib/prisma"
-import { notFound } from "next/navigation"
+import { Card, CardContent } from "@/app/_components/ui/card";
+import { db } from "@/app/_lib/prisma";
+import { notFound } from "next/navigation";
 import {
   CircleCheck,
   CircleDollarSign,
   CircleFadingArrowUp,
   CircleX,
   PencilIcon,
-} from "lucide-react"
+  PrinterIcon,
+  RedoDotIcon,
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/app/_components/ui/dialog"
-import { DialogTrigger } from "@radix-ui/react-dialog"
-import OrcamentoForm from "@/app/_components/OrcamentoForm"
-import OrcamentoStatusForm from "@/app/_components/OrcamentoStatusForm"
+} from "@/app/_components/ui/dialog";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import OrcamentoForm from "@/app/_components/OrcamentoForm";
+import OrcamentoStatusForm from "@/app/_components/OrcamentoStatusForm";
+import { Button } from "@/app/_components/ui/button";
+import Link from "next/link";
 
 interface OrcamentoPageProps {
   params: {
-    id: number
-  }
+    id: number;
+  };
 }
 
 interface Orcamento {
-  id: number
-  descricao: string | null
-  data_criacao: Date
-  valor_total: number
-  status: string
+  id: number;
+  descricao: string | null;
+  data_criacao: Date;
+  valor_total: number;
+  status: string;
   carro: {
-    id: number
-    marca: string
-    modelo: string
-    placa: string
-  }
+    id: number;
+    marca: string;
+    modelo: string;
+    placa: string;
+  };
   cliente: {
-    id: number
-    nome: string
-    cpf: string | null
-    email: string | null
-    telefone: string | null
-    endereco: string | null
-  }
+    id: number;
+    nome: string;
+    cpf: string | null;
+    email: string | null;
+    telefone: string | null;
+    endereco: string | null;
+  };
   itens: {
-    id: number
-    descricao: string | null
-    quantidade: number
-    valor: number
-  }[]
+    id: number;
+    descricao: string | null;
+    quantidade: number;
+    valor: number;
+  }[];
 }
 
 const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
@@ -63,19 +67,19 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
       cliente: true,
       itens: true,
     },
-  })
+  });
 
   if (!orcamentoDetails) {
-    return notFound()
+    return notFound();
   }
 
-  const orcamento: Orcamento = orcamentoDetails
+  const orcamento: Orcamento = orcamentoDetails;
 
   return (
     <div className="mt-6 grid w-full grid-cols-1 gap-2">
       <Card className="flex w-3/4 justify-self-center">
-        <CardContent className="w-11/12 p-3">
-          <h2 className="mb-3 text-xs font-bold uppercase text-gray-500">
+        <CardContent>
+          <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-500">
             Detalhes do Orçamento
           </h2>
           <div className="px-20">
@@ -158,37 +162,58 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
               </div>
             </div>
           </div>
-          <Dialog>
-            <DialogTrigger>
-              <div className="mx-20 mt-2 flex flex-row gap-1 rounded-lg bg-slate-600 px-2 py-1">
-                <PencilIcon size={20} />
-                Editar
-              </div>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Editar dados do Orçamento</DialogTitle>
-                <DialogDescription>Atualização do orçamento.</DialogDescription>
-              </DialogHeader>
-              <OrcamentoForm orcamento={orcamento} id={params.id} />
-            </DialogContent>
-          </Dialog>
 
-          <Dialog>
-            <DialogTrigger>
-              <div className="mx-20 mt-2 flex flex-row gap-1 rounded-lg bg-slate-600 px-2 py-1">
-                <PencilIcon size={20} />
-                Alterar Status
-              </div>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Mudança de status do Orçamento</DialogTitle>
-                <DialogDescription>Atualização do orçamento.</DialogDescription>
-              </DialogHeader>
-              <OrcamentoStatusForm orcamento={orcamento} id={params.id} />
-            </DialogContent>
-          </Dialog>
+          <div className="flex gap-1 mx-20 mt-2">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  size={"sm"}
+                  className="flex gap-1"
+                  variant={"secondary"}
+                >
+                  <PencilIcon size={20} />
+                  Editar
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Editar dados do Orçamento</DialogTitle>
+                  <DialogDescription>
+                    Atualização do orçamento.
+                  </DialogDescription>
+                </DialogHeader>
+                <OrcamentoForm orcamento={orcamento} id={params.id} />
+              </DialogContent>
+            </Dialog>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size={"sm"} className="flex gap-1" variant="outline">
+                  <RedoDotIcon size={20} />
+                  Alterar Status
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Mudança de status do Orçamento</DialogTitle>
+                  <DialogDescription>
+                    Atualização do orçamento.
+                  </DialogDescription>
+                </DialogHeader>
+                <OrcamentoStatusForm orcamento={orcamento} id={params.id} />
+              </DialogContent>
+            </Dialog>
+
+            <Button size={"sm"} variant={"ghost"}>
+              <Link
+                className="flex gap-1"
+                href={`/orcamentos/${params.id}/imprimir`}
+              >
+                <PrinterIcon size={20} />
+                Imprimir
+              </Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
       <Card className="flex w-3/4 justify-self-center">
@@ -243,7 +268,7 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default OrcamentoDetalhes
+export default OrcamentoDetalhes;

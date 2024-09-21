@@ -1,7 +1,7 @@
-"use client"
-import Image from "next/image"
-import { Card, CardContent } from "./ui/card"
-import { Button } from "./ui/button"
+"use client";
+import Image from "next/image";
+import { Card, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
 import {
   Car,
   CircleUser,
@@ -9,28 +9,28 @@ import {
   HandCoins,
   HomeIcon,
   MenuIcon,
-} from "lucide-react"
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet"
-import { Avatar, AvatarImage } from "./ui/avatar"
-import Link from "next/link"
-import { useState } from "react"
+} from "lucide-react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
+import { Avatar, AvatarImage } from "./ui/avatar";
+import Link from "next/link";
+import { useState } from "react";
 
 const Header = () => {
-  const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const options: Intl.DateTimeFormatOptions = {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
-  }
+  };
 
   const handleButtonClick = () => {
-    setIsSheetOpen(false)
-  }
+    setIsSheetOpen(false);
+  };
 
   return (
-    <Card>
+    <Card className="header">
       <CardContent className="flex flex-row items-center justify-between p-5">
         <Image src="/logo.png" alt="Brother's Car" width={100} height={15} />
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -116,7 +116,7 @@ const Header = () => {
         </Sheet>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
