@@ -1,5 +1,4 @@
 import { Separator } from "@/app/_components/ui/separator";
-import { Table, TableHeader } from "@/app/_components/ui/table";
 import { db } from "@/app/_lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
