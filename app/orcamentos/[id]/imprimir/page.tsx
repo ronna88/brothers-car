@@ -127,23 +127,6 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
         </div>
       </div>
 
-      <div className="page-footer w-full">
-        <div className="">
-          <Separator />
-          <div className="flex">
-            <div className="w-2/4">
-              <p>Brothers Car</p>
-            </div>
-            <div className="grid grid-cols-2 w-2/4 items-center">
-              <div className="text-xs text-center">61 3773.5868</div>
-              <div className="text-xs text-center">
-                brotherscarauto@gmail.com
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <table className="w-full">
         <thead>
           <tr>
@@ -188,6 +171,23 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
           </tr>
         </tfoot>
       </table>
+
+      <div className="page-footer w-full">
+        <div className="">
+          <Separator />
+          <div className="flex">
+            <div className="w-2/4">
+              <p>Brothers Car</p>
+            </div>
+            <div className="grid grid-cols-2 w-2/4 items-center">
+              <div className="text-xs text-center">61 3773.5868</div>
+              <div className="text-xs text-center">
+                brotherscarauto@gmail.com
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
