@@ -1,49 +1,50 @@
-import { Card, CardContent } from "@/app/_components/ui/card"
-import { db } from "@/app/_lib/prisma"
-import { notFound } from "next/navigation"
+import { Card, CardContent } from "@/app/_components/ui/card";
+import { db } from "@/app/_lib/prisma";
+import { notFound } from "next/navigation";
 import {
   CircleCheck,
   CircleDollarSign,
   CircleFadingArrowUp,
   CircleX,
   PencilIcon,
-} from "lucide-react"
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/app/_components/ui/dialog"
-import { DialogTrigger } from "@radix-ui/react-dialog"
-import CarroForm from "@/app/_components/CarroForm"
+} from "@/app/_components/ui/dialog";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import CarroForm from "@/app/_components/CarroForm";
+import { Button } from "@/app/_components/ui/button";
 
 interface CarroPageProps {
   params: {
-    id: number
-  }
+    id: number;
+  };
 }
 
 interface Carro {
-  id: number
-  marca: string
-  modelo: string
-  ano: number
-  placa: string
+  id: number;
+  marca: string;
+  modelo: string;
+  ano: number;
+  placa: string;
   cliente: {
-    id: number
-    nome: string
-    cpf: string | null
-    email: string | null
-    telefone: string | null
-    endereco: string | null
-  }
+    id: number;
+    nome: string;
+    cpf: string | null;
+    email: string | null;
+    telefone: string | null;
+    endereco: string | null;
+  };
   orcamentos: {
-    id: number
-    descricao: string | null
-    valor_total: number
-    status: "pendente" | "aprovado" | "pago" | "cancelado"
-  }[]
+    id: number;
+    descricao: string | null;
+    valor_total: number;
+    status: "pendente" | "aprovado" | "pago" | "cancelado";
+  }[];
 }
 
 const CarroDetalhes = async ({ params }: CarroPageProps) => {
@@ -55,13 +56,13 @@ const CarroDetalhes = async ({ params }: CarroPageProps) => {
       orcamentos: true,
       cliente: true,
     },
-  })
+  });
 
   if (!carroDetails) {
-    return notFound()
+    return notFound();
   }
 
-  const carro: Carro = carroDetails
+  const carro: Carro = carroDetails;
 
   return (
     <div className="mt-6 grid w-full grid-cols-1 gap-2">
@@ -87,11 +88,15 @@ const CarroDetalhes = async ({ params }: CarroPageProps) => {
             <p className="text-gray-500">{carro.placa}</p>
           </div>
           <Dialog>
-            <DialogTrigger>
-              <div className="mt-2 flex flex-row gap-1 rounded-lg bg-slate-600 px-1 py-1">
+            <DialogTrigger asChild>
+              <Button
+                size={"sm"}
+                variant={"secondary"}
+                className="mt-2  flex flex-row gap-1 rounded-lg px-2 py-1"
+              >
                 <PencilIcon size={20} />
                 Editar
-              </div>
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
@@ -200,7 +205,7 @@ const CarroDetalhes = async ({ params }: CarroPageProps) => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default CarroDetalhes
+export default CarroDetalhes;

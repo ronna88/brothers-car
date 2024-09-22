@@ -1,42 +1,43 @@
-import { Card, CardContent } from "@/app/_components/ui/card"
-import { db } from "@/app/_lib/prisma"
-import { notFound } from "next/navigation"
+import { Card, CardContent } from "@/app/_components/ui/card";
+import { db } from "@/app/_lib/prisma";
+import { notFound } from "next/navigation";
 import {
   CircleCheck,
   CircleDollarSign,
   CircleFadingArrowUp,
   CircleX,
   PencilIcon,
-} from "lucide-react"
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/app/_components/ui/dialog"
-import { DialogTrigger } from "@radix-ui/react-dialog"
-import ClienteForm from "@/app/_components/ClienteForm"
+} from "@/app/_components/ui/dialog";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import ClienteForm from "@/app/_components/ClienteForm";
+import { Button } from "@/app/_components/ui/button";
 
 interface ClientePageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 interface Cliente {
-  id: number
-  nome: string
-  email: string | null
-  cpf: string | null
-  telefone: string | null
-  endereco: string | null
+  id: number;
+  nome: string;
+  email: string | null;
+  cpf: string | null;
+  telefone: string | null;
+  endereco: string | null;
   orcamentos?: {
-    id: number
-    descricao: string | null
-    valor_total: number
-    status: string
-  }[]
+    id: number;
+    descricao: string | null;
+    valor_total: number;
+    status: string;
+  }[];
 }
 
 const ClienteDetalhes = async ({ params }: ClientePageProps) => {
@@ -47,14 +48,14 @@ const ClienteDetalhes = async ({ params }: ClientePageProps) => {
     include: {
       orcamentos: true,
     },
-  })
+  });
 
   if (!clienteDetails) {
-    console.log(`Cliente com ID ${params.id} não foi encontrado.`)
-    return notFound()
+    console.log(`Cliente com ID ${params.id} não foi encontrado.`);
+    return notFound();
   }
 
-  const cliente: Cliente = JSON.parse(JSON.stringify(clienteDetails))
+  const cliente: Cliente = JSON.parse(JSON.stringify(clienteDetails));
 
   return (
     <div className="mt-6 grid w-full grid-cols-1 gap-2">
@@ -81,11 +82,15 @@ const ClienteDetalhes = async ({ params }: ClientePageProps) => {
           </div>
 
           <Dialog>
-            <DialogTrigger>
-              <div className="mt-2 flex flex-row gap-1 rounded-lg bg-slate-600 px-1 py-1">
+            <DialogTrigger asChild>
+              <Button
+                className="mt-2 flex gap-1 rounded-lg py-1 px-2"
+                size={"sm"}
+                variant={"secondary"}
+              >
                 <PencilIcon size={20} />
                 Editar
-              </div>
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
@@ -171,7 +176,7 @@ const ClienteDetalhes = async ({ params }: ClientePageProps) => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default ClienteDetalhes
+export default ClienteDetalhes;
