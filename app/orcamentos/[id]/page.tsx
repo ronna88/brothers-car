@@ -82,7 +82,7 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
           <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-500">
             Detalhes do Orçamento
           </h2>
-          <div className="px-20">
+          <div className="">
             <div className="flex flex-row gap-2">
               <h3 className="font-semibold">Data:</h3>
               <p className="text-gray-500">
@@ -104,7 +104,7 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
             </div>
             <div className="flex flex-row gap-2">
               <h3 className="font-semibold">Itens:</h3>
-              <ul>
+              <ul className="w-2/3">
                 {orcamento.itens.map((item) => (
                   <li key={item.id}>
                     <div className="flex flex-row gap-2">
@@ -163,7 +163,7 @@ const OrcamentoDetalhes = async ({ params }: OrcamentoPageProps) => {
             </div>
           </div>
 
-          <div className="flex gap-1 mx-20 mt-2">
+          <div className="flex justify-center mt-3 gap-2">
             <Dialog>
               <DialogTrigger asChild>
                 <Button
